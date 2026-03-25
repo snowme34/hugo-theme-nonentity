@@ -1,0 +1,11 @@
+<footer class="site-footer">
+  {{ with .Site.Params.footerText }}<p class="site-footer__meta">{{ . }}</p>{{ end }}
+  {{ with .Site.Params.copyright.text }}<p class="site-footer__meta">{{ . }}</p>{{ end }}
+  {{ with .Site.Params.copyright.license }}
+    {{ if (.enable | default false) }}
+      <a class="cc-badge" href="{{ .link }}" aria-label="{{ .name }}">
+        <img src="{{ .image }}" alt="{{ .name }}">
+      </a>
+    {{ end }}
+  {{ end }}
+</footer>

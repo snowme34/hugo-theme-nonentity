@@ -1,0 +1,76 @@
+{{ define "main" }}
+{{ $paginateCount := cond (eq .Data.Plural "tags") (.Site.Params.paginateTags | default 15) (.Site.Params.paginateTaxonomy | default 30) }}
+{{ $paginator := .Paginate .Pages $paginateCount }}
+<div class="taxonomy-page" data-taxonomy-page data-taxonomy-type="{{ .Data.Plural }}">
+  <header class="taxonomy-header">
+    <h1>{{ .Title }}</h1>
+    <p class="taxonomy-count">{{ len .Data.Terms }} {{ if eq .Data.Plural "categories" }}categories{{ else }}{{ .Data.Plural }}{{ end }}</p>
+  </header>
+  {{ if eq .Data.Plural "tags" }}
+    {{ $posts := where .Site.RegularPages "Section" "posts" }}
+    {{ $tagPosts := slice }}
+    {{ range $posts }}
+      {{ $postTags := slice }}
+      {{ with .GetTerms "tags" }}
+        {{ range . }}
+          {{ $postTags = $postTags | append (dict "name" (.LinkTitle | lower) "label" .LinkTitle "url" .RelPermalink) }}
+        {{ end }}
+      {{ end }}
+      {{ $tagPosts = $tagPosts | append (dict
+        "title" .Title
+        "uri" .RelPermalink
+        "date" (cond .Date.IsZero "" (.Date.Format "January 2, 2006"))
+        "datetime" (cond .Date.IsZero "" (.Date.Format "2006-01-02"))
+        "excerpt" (cond (isset .Params "excerpt") .Params.excerpt (.Plain | truncate 180))
+        "tags" $postTags
+      ) }}
+    {{ end }}
+    <section class="tag-filter-panel" data-tag-filter-root>
+      <div class="tag-filter-controls">
+        <button type="button" class="tag-filter-btn" data-tag-filter-action="all">Select all</button>
+        <button type="button" class="tag-filter-btn" data-tag-filter-action="clear">Clear</button>
+        <div class="tag-filter-mode" role="group" aria-label="Filter mode">
+          <button type="button" class="tag-filter-btn is-selected" data-tag-filter-mode="or">OR</button>
+          <button type="button" class="tag-filter-btn" data-tag-filter-mode="and">AND</button>
+        </div>
+        <p class="taxonomy-count" data-tag-filter-status></p>
+      </div>
+      <nav class="taxonomy-jump taxonomy-jump--all" aria-label="All tags" data-tag-filter-list>
+        {{ range .Data.Terms.Alphabetical }}
+          <button type="button" class="tag-filter-chip" data-tag-filter-chip data-tag-name="{{ .Page.Title | lower }}">{{ .Page.Title }} <span class="count">{{ .Count }}</span></button>
+        {{ end }}
+      </nav>
+      <script type="application/json" data-tag-filter-data>{{ $tagPosts | jsonify }}</script>
+      <div class="tag-filter-results-meta">
+        <p class="taxonomy-count" data-tag-filter-range></p>
+        <div class="pagination pagination--filter" data-tag-filter-pagination hidden>
+          <button type="button" class="pagination__link" data-tag-filter-page="prev">Newer</button>
+          <span class="pagination__status" data-tag-filter-page-status></span>
+          <button type="button" class="pagination__link" data-tag-filter-page="next">Older</button>
+        </div>
+      </div>
+      <ul class="post-list" data-tag-filter-results data-tag-filter-page-size="{{ .Site.Params.paginateTags | default 15 }}"></ul>
+      <p class="taxonomy-empty" data-tag-filter-empty hidden>No posts match the current tag filter.</p>
+    </section>
+  {{ else }}
+    <nav class="taxonomy-jump" aria-label="Jump to term pages">
+      {{ range $paginator.Pages }}
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      {{ end }}
+    </nav>
+    <ul class="post-list taxonomy-term-list">
+      {{ range $paginator.Pages }}
+        <li class="post-list-item">
+          <h2 class="post-list-item__title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+          <p class="taxonomy-count">{{ len .Pages }} post{{ if ne (len .Pages) 1 }}s{{ end }}</p>
+        </li>
+      {{ end }}
+    </ul>
+    {{ partial "pagination.html" . }}
+  {{ end }}
+</div>
+{{ end }}
+
+{{ define "sidebar" }}
+  {{ partial "right-sidebar.html" . }}
+{{ end }}

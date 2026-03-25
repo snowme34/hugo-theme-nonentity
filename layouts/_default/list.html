@@ -1,0 +1,37 @@
+{{ define "main" }}
+{{ $dateFormat := .Site.Params.dateFormat | default "January 2, 2006" }}
+{{ $paginateCount := cond (eq .Section "posts") (.Site.Params.paginateArchive | default 50) (.Site.Params.paginate | default 20) }}
+{{ $paginator := .Paginate .Pages $paginateCount }}
+<div class="list-page">
+  <header class="list-header">
+    <h1>{{ .Title }}</h1>
+    <p class="list-count">{{ len .Pages }} {{ if eq (len .Pages) 1 }}post{{ else }}posts{{ end }}</p>
+  </header>
+  {{ if eq .Section "posts" }}
+    {{ range $paginator.Pages.GroupByDate "2006" }}
+      <section class="archive-year">
+        <h2 class="archive-year__title">{{ .Key }}</h2>
+        <ul class="archive-list">
+          {{ range .Pages }}
+            <li class="archive-item">
+              <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format $dateFormat }}</time>
+              <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+            </li>
+          {{ end }}
+        </ul>
+      </section>
+    {{ end }}
+  {{ else }}
+    <ul class="post-list">
+      {{ range $paginator.Pages }}
+        {{ partial "post-list-item.html" (dict "page" . "dateFormat" $dateFormat) }}
+      {{ end }}
+    </ul>
+  {{ end }}
+  {{ partial "pagination.html" . }}
+</div>
+{{ end }}
+
+{{ define "sidebar" }}
+  {{ partial "right-sidebar.html" . }}
+{{ end }}

@@ -1,0 +1,24 @@
+{{ define "main" }}
+{{ $dateFormat := .Site.Params.dateFormat | default "January 2, 2006" }}
+{{ $paginator := .Paginate .Pages (.Site.Params.paginateTaxonomy | default 30) }}
+<div class="taxonomy-single">
+  <header class="taxonomy-header">
+    <h1>{{ .Title }}</h1>
+    <p class="taxonomy-count">{{ len .Pages }} post{{ if ne (len .Pages) 1 }}s{{ end }}</p>
+  </header>
+  {{ if eq (len .Pages) 0 }}
+    <p class="taxonomy-empty">No posts found in this {{ .Data.Singular }}.</p>
+  {{ else }}
+    <ul class="post-list">
+      {{ range $paginator.Pages }}
+        {{ partial "post-list-item.html" (dict "page" . "dateFormat" $dateFormat "showCategoryPath" (eq $.Data.Singular "category")) }}
+      {{ end }}
+    </ul>
+    {{ partial "pagination.html" . }}
+  {{ end }}
+</div>
+{{ end }}
+
+{{ define "sidebar" }}
+  {{ partial "right-sidebar.html" . }}
+{{ end }}

@@ -1,0 +1,9 @@
+{{ $toc := .TableOfContents }}
+{{ if and $toc (in $toc "<li") }}
+<section class="sidebar-panel toc-panel">
+  <h2 class="sidebar-panel__title">Table of Contents</h2>
+  <div class="toc-content" data-toc>
+    {{ $toc }}
+  </div>
+</section>
+{{ end }}

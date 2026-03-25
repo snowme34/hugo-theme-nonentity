@@ -1,0 +1,98 @@
+baseURL = "http://localhost:1313/"
+languageCode = "en-us"
+title = "Nonentity Theme Demo"
+theme = "nonentity"
+enableEmoji = true
+
+enableRobotsTXT = true
+
+[params]
+  description = "A minimal Hugo theme"
+  sidebarDescription = "Hello"
+  footerText = "Proudly using Hugo | nonentity"
+  keywords = ["blog", "developer"]
+  dateFormat = "January 2, 2006"
+  favicon = "/images/avatar.svg"
+  paginate = 15
+  paginateArchive = 10
+  paginateTaxonomy = 5
+  paginateTags = 15
+  showColorSchemeToggle = true
+  enableRSS = true
+
+  [params.profile]
+    avatar = "/images/avatar.svg"
+    name = "Demo User"
+    bio = "Building with Hugo"
+    link = "/"
+
+  [params.leftNavExtra]
+    enable = true
+
+    [[params.leftNavExtra.items]]
+      name = "GitHub"
+      link = "https://github.com"
+      location = "append"
+      svg = "<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><path d='M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22'></path></svg>"
+
+  [[params.socials]]
+    name = "GitHub"
+    url = "https://github.com"
+    icon = "github"
+    weight = 1
+
+  [[params.socials]]
+    name = "X"
+    url = "https://twitter.com"
+    icon = "x"
+    weight = 2
+
+  [[params.socials]]
+    name = "Instagram"
+    url = "https://instagram.com"
+    icon = "instagram"
+    weight = 3
+
+  [params.copyright]
+    text = "© 2026 Jane Doe"
+
+    [params.copyright.license]
+      enable = true
+      name = "CC BY-NC-SA 4.0"
+      image = "https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png"
+      link = "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+
+  [params.toc]
+    enable = true
+
+  [params.comments.giscus]
+    enable = false
+    repo = "username/repo"
+    repoID = "R_..."
+    category = "General"
+    categoryID = "DIC_..."
+    mapping = "pathname"
+    reactionsEnabled = "1"
+    emitMetadata = "0"
+    inputPosition = "bottom"
+    theme = "preferred_color_scheme"
+    lang = "en"
+    loading = "lazy"
+
+  [params.analytics.cloudflare]
+    enable = false
+    token = ""
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+
+[markup]
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 4
+  [markup.highlight]
+    noClasses = false
+
+[outputs]
+  home = ["HTML", "JSON", "RSS"]

@@ -1,0 +1,12 @@
+name = "Nonentity"
+license = "MIT"
+licenselink = "https://github.com/snowme34/hugo-theme-nonentity/blob/main/LICENSE"
+description = "A minimal Hugo theme"
+homepage = "https://github.com/snowme34/hugo-theme-nonentity"
+tags = ["blog", "minimal", "clean"]
+features = ["responsive", "dark-mode", "search", "toc"]
+min_version = "0.112.0"
+
+[author]
+  name = "snowme34"
+  homepage = "https://snowme34.com"

@@ -1,0 +1,3 @@
+<script src="{{ "js/search.js" | relURL }}" defer></script>
+{{ if and (eq .Kind "taxonomy") (eq .Data.Plural "tags") }}<script src="{{ "js/tag-filter.js" | relURL }}" defer></script>{{ end }}
+<script src="{{ "js/main.js" | relURL }}" defer></script>

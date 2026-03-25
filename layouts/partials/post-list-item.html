@@ -1,0 +1,43 @@
+{{ $page := .page }}
+{{ $dateFormat := .dateFormat | default "January 2, 2006" }}
+{{ $showFullMeta := .showFullMeta | default false }}
+{{ $showCategoryPath := .showCategoryPath | default false }}
+<li class="post-list-item">
+  <h2 class="post-list-item__title"><a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a></h2>
+  <div class="post-meta">
+    {{ if $showFullMeta }}
+      {{ if not $page.Date.IsZero }}
+      <span class="post-meta__item">
+        {{ partial "icons/calendar.html" $page }}
+        <time datetime="{{ $page.Date.Format "2006-01-02" }}">{{ $page.Date.Format $dateFormat }}</time>
+      </span>
+      {{ end }}
+      {{ with $page.GetTerms "categories" }}
+        {{ range . }}
+          <span class="post-meta__item">
+            {{ partial "icons/folder.html" $page }}
+            <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+          </span>
+        {{ end }}
+      {{ end }}
+      {{ with $page.GetTerms "tags" }}
+        <span class="post-meta__item post-meta__item--tags">
+          {{ partial "icons/tag.html" $page }}
+          <span class="post-meta__links">
+            {{ range $index, $tag := . }}{{ if gt $index 0 }}, {{ end }}<a href="{{ $tag.RelPermalink }}" class="tag">{{ $tag.LinkTitle }}</a>{{ end }}
+          </span>
+        </span>
+      {{ end }}
+    {{ else }}
+      {{ if not $page.Date.IsZero }}
+      <time datetime="{{ $page.Date.Format "2006-01-02" }}">{{ $page.Date.Format $dateFormat }}</time>
+      {{ end }}
+      {{ if $showCategoryPath }}
+        {{ with $page.Params.categories }}
+          <span class="post-meta__category-path">{{ delimit . " / " }}</span>
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  </div>
+  <p class="post-list-item__summary">{{ with $page.Params.excerpt }}{{ . }}{{ else }}{{ $page.Plain | truncate 180 }}{{ end }}</p>
+</li>

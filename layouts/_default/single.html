@@ -1,0 +1,42 @@
+{{ define "main" }}
+{{ $dateFormat := .Site.Params.dateFormat | default "January 2, 2006" }}
+<article class="post">
+  <header class="post-header">
+    <h1 class="post-title">{{ .Title }}</h1>
+    <div class="post-meta">
+      {{ if not .Date.IsZero }}
+      <span class="post-meta__item">
+        {{ partial "icons/calendar.html" . }}
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format $dateFormat }}</time>
+      </span>
+      {{ end }}
+      {{ with .GetTerms "categories" }}
+        {{ range . }}
+          <span class="post-meta__item">
+            {{ partial "icons/folder.html" $ }}
+            <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+          </span>
+        {{ end }}
+      {{ end }}
+      {{ with .GetTerms "tags" }}
+        <span class="post-meta__item post-meta__item--tags">
+          {{ partial "icons/tag.html" $ }}
+          <span class="post-meta__links">
+            {{ range $index, $tag := . }}{{ if gt $index 0 }}, {{ end }}<a href="{{ $tag.RelPermalink }}" class="tag">{{ $tag.LinkTitle }}</a>{{ end }}
+          </span>
+        </span>
+      {{ end }}
+    </div>
+  </header>
+  <div class="post-content">
+    {{ .Content }}
+  </div>
+  {{ if eq .Section "posts" }}
+    {{ partial "comments.html" . }}
+  {{ end }}
+</article>
+{{ end }}
+
+{{ define "sidebar" }}
+  {{ partial "right-sidebar.html" . }}
+{{ end }}

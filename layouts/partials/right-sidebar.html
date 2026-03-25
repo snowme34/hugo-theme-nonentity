@@ -1,0 +1,21 @@
+<aside class="right-sidebar" data-right-sidebar>
+  <div class="right-sidebar__backdrop" data-right-sidebar-backdrop hidden></div>
+  <div class="right-sidebar__panel">
+    {{ if and .IsPage (.Params.toc | default .Site.Params.toc.enable) }}
+      <div class="right-sidebar__inner">
+        <div class="right-sidebar__scroll" data-sidebar-scroll>
+          {{ partial "toc.html" . }}
+        </div>
+      </div>
+    {{ else }}
+      {{ partial "sidebar-right.html" . }}
+    {{ end }}
+    <div class="right-sidebar__controls">
+      <button class="right-sidebar-toggle" type="button" aria-label="Toggle right sidebar" aria-expanded="false" data-right-sidebar-toggle>
+        <span class="right-sidebar-toggle__icon right-sidebar-toggle__icon--closed" aria-hidden="true">{{ partial "icons/chevron-left.html" . }}</span>
+        <span class="right-sidebar-toggle__icon right-sidebar-toggle__icon--open" aria-hidden="true">{{ partial "icons/chevron-right.html" . }}</span>
+      </button>
+      {{ partial "color-scheme-toggle.html" . }}
+    </div>
+  </div>
+</aside>

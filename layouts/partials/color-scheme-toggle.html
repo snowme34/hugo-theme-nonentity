@@ -1,0 +1,7 @@
+{{ if ne .Site.Params.showColorSchemeToggle false }}
+<button class="color-scheme-toggle" type="button" role="switch" aria-label="Toggle dark mode" aria-checked="false" data-color-scheme-toggle>
+  <span class="color-scheme-toggle__icon color-scheme-toggle__icon--sun" aria-hidden="true">☀</span>
+  <span class="color-scheme-toggle__track"><span class="color-scheme-toggle__thumb"></span></span>
+  <span class="color-scheme-toggle__icon color-scheme-toggle__icon--moon" aria-hidden="true">☾</span>
+</button>
+{{ end }}

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="{{ default .Site.Language.Lang .Site.LanguageCode }}" dir="{{ default "ltr" .Site.Language.LanguageDirection }}">
+  <head>
+  {{- partial "head.html" . -}}
+  </head>
+  <body class="theme-nonentity">
+    <div class="page-shell">
+      {{- partial "nav-left.html" . -}}
+      <main class="main-content">
+        {{- block "main" . }}{{- end }}
+        {{- partial "footer.html" . -}}
+      </main>
+      {{- block "sidebar" . }}{{- end }}
+    </div>
+    {{- partial "search-modal.html" . -}}
+    {{- partial "scripts.html" . -}}
+  </body>
+</html>

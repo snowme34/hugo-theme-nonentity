@@ -1,0 +1,10 @@
+<div class="search-modal" hidden data-search-modal data-search-index-url="{{ "index.json" | relURL }}">
+  <div class="search-modal__backdrop" data-search-close></div>
+  <div class="search-modal__dialog" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="search-modal__header">
+      <input type="text" class="search-modal__input" placeholder="Search..." aria-label="Search" data-search-input>
+      <button type="button" class="search-modal__close" aria-label="Close search" data-search-close>×</button>
+    </div>
+    <div class="search-results" data-search-results></div>
+  </div>
+</div>

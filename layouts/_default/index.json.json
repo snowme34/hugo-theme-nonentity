@@ -1,0 +1,19 @@
+{{ $categories := slice }}
+{{ range .Site.Taxonomies.categories }}
+  {{ $categories = $categories | append (dict "title" .Page.Title "uri" .Page.RelPermalink) }}
+{{ end }}
+{{ $tags := slice }}
+{{ range .Site.Taxonomies.tags }}
+  {{ $tags = $tags | append (dict "title" .Page.Title "uri" .Page.RelPermalink) }}
+{{ end }}
+{{ $posts := slice }}
+{{ $pages := slice }}
+{{ range $index, $page := .Site.RegularPages }}
+  {{ $entry := dict "title" $page.Title "uri" $page.RelPermalink "summary" $page.Summary "content" ($page.Plain | truncate 5000) "tags" $page.Params.tags "categories" $page.Params.categories "year" ($page.Date.Format "2006") }}
+  {{ if eq $page.Section "posts" }}
+    {{ $posts = $posts | append $entry }}
+  {{ else }}
+    {{ $pages = $pages | append $entry }}
+  {{ end }}
+{{ end }}
+{{ dict "posts" $posts "pages" $pages "tags" $tags "categories" $categories | jsonify }}

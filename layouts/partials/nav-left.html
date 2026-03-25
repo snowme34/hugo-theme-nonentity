@@ -1,0 +1,81 @@
+{{ $aboutURL := "about/" | relURL }}
+{{ $homeActive := or .IsHome (and (eq .Kind "page") (ne .Section "posts") (ne .RelPermalink $aboutURL)) }}
+{{ $profile := .Site.Params.profile | default (dict) }}
+{{ $profileLink := $profile.link | default "" }}
+{{ $defaultNav := slice
+  (dict "name" "Home" "url" ("" | relURL) "icon" "home" "active" $homeActive)
+  (dict "name" "Archives" "url" ("posts/" | relURL) "icon" "archive" "active" (and (eq .Section "posts") (eq .Kind "section")))
+  (dict "name" "Categories" "url" ("categories/" | relURL) "icon" "folder" "active" (eq .Data.Plural "categories"))
+  (dict "name" "Tags" "url" ("tags/" | relURL) "icon" "tag" "active" (eq .Data.Plural "tags"))
+  (dict "name" "About" "url" $aboutURL "icon" "user" "active" (eq .RelPermalink $aboutURL))
+}}
+{{ $leftNavEnabled := .Site.Params.leftNavExtra.enable | default false }}
+{{ $prependNav := slice }}
+{{ $appendNav := slice }}
+{{ if $leftNavEnabled }}
+  {{ range .Site.Params.leftNavExtra.items }}
+    {{ $item := dict "name" .name "url" .link "iconSvg" .svg "active" false }}
+    {{ if eq (.location | default "append") "prepend" }}
+      {{ $prependNav = $prependNav | append $item }}
+    {{ else }}
+      {{ $appendNav = $appendNav | append $item }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+{{ $navItems := $prependNav | append $defaultNav }}
+{{ $navItems = $navItems | append $appendNav }}
+{{ $socials := sort (.Site.Params.socials | default (slice)) "weight" "asc" }}
+<aside class="left-sidebar" data-sidebar>
+  <div class="left-sidebar__backdrop" data-sidebar-backdrop hidden></div>
+  <div class="left-sidebar__inner">
+    <button class="sidebar-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" data-sidebar-toggle>
+      <span class="sidebar-toggle__icon sidebar-toggle__icon--closed" aria-hidden="true">{{ partial "icons/chevrons-right.html" . }}</span>
+      <span class="sidebar-toggle__icon sidebar-toggle__icon--open" aria-hidden="true">{{ partial "icons/chevrons-left.html" . }}</span>
+    </button>
+    <div class="profile-card">
+      <a class="profile-card__avatar-link" href="{{ $profileLink | relURL }}" aria-label="{{ $profile.name }}">
+        <div class="profile-card__avatar">
+          <img src="{{ $profile.avatar | relURL }}" alt="{{ $profile.name }}">
+        </div>
+      </a>
+      <h1 class="profile-card__name">{{ $profile.name }}</h1>
+      {{ with $profile.bio }}<p class="profile-card__bio">{{ . }}</p>{{ end }}
+    </div>
+
+    <button class="search-trigger" type="button" data-search-open>
+      {{ partial "icons/search.html" . }}
+      <span>Search</span>
+    </button>
+
+    <nav class="main-nav" aria-label="Main navigation">
+      {{ range $navItems }}
+        <a href="{{ .url }}" class="main-nav__link{{ if .active }} is-active{{ end }}">
+          {{ with .icon }}{{ partial (printf "icons/%s.html" .) $ }}{{ end }}
+          {{ with .iconSvg }}<span class="main-nav__icon main-nav__icon--custom" aria-hidden="true">{{ . | safeHTML }}</span>{{ end }}
+          <span class="main-nav__label">{{ .name }}</span>
+        </a>
+      {{ end }}
+    </nav>
+
+    <div class="sidebar-footer">
+      {{ if $socials }}
+        <div class="social-links">
+          {{ range $socials }}
+            <a href="{{ .url }}" aria-label="{{ .name }}" target="_blank" rel="noopener noreferrer">
+              {{ if .iconSvg }}
+                {{ .iconSvg | safeHTML }}
+              {{ else if .icon }}
+                {{ partial (printf "icons/%s.html" .icon) $ }}
+              {{ end }}
+            </a>
+          {{ end }}
+          {{ if .Site.Params.enableRSS }}
+            <a href="{{ "index.xml" | relURL }}" aria-label="RSS">
+              {{ partial "icons/rss.html" $ }}
+            </a>
+          {{ end }}
+        </div>
+      {{ end }}
+    </div>
+  </div>
+</aside>

@@ -1,0 +1,28 @@
+<div class="right-sidebar__inner">
+  <div class="right-sidebar__scroll" data-sidebar-scroll>
+    <section class="sidebar-panel">
+      <h2 class="sidebar-panel__title">About</h2>
+      <p>{{ .Site.Params.sidebarDescription | default .Site.Params.description }}</p>
+    </section>
+    {{ if .Site.Taxonomies.categories }}
+    <section class="sidebar-panel">
+      <h2 class="sidebar-panel__title">Categories</h2>
+      <ul class="taxonomy-list">
+        {{ range .Site.Taxonomies.categories.Alphabetical }}
+          <li><a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a> ({{ .Count }})</li>
+        {{ end }}
+      </ul>
+    </section>
+    {{ end }}
+    {{ if .Site.Taxonomies.tags }}
+    <section class="sidebar-panel">
+      <h2 class="sidebar-panel__title">Tags</h2>
+      <div class="tag-cloud">
+        {{ range .Site.Taxonomies.tags.Alphabetical }}
+          <a href="{{ .Page.RelPermalink }}" class="tag">{{ .Page.Title }}</a>
+        {{ end }}
+      </div>
+    </section>
+    {{ end }}
+  </div>
+</div>
