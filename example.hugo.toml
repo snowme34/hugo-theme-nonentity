@@ -8,7 +8,8 @@ enableRobotsTXT = true
 
 [params]
   description = "A minimal Hugo theme"
-  sidebarDescription = "Hello"
+  rightSidebarInfo = "Hello"
+  rightSidebarInfoTitle = "About"  # Title for the About panel in the right sidebar
   footerText = "Proudly using Hugo | nonentity"
   keywords = ["blog", "developer"]
   dateFormat = "January 2, 2006"

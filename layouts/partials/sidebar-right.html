@@ -1,8 +1,8 @@
 <div class="right-sidebar__inner">
   <div class="right-sidebar__scroll" data-sidebar-scroll>
     <section class="sidebar-panel">
-      <h2 class="sidebar-panel__title">About</h2>
-      <p>{{ .Site.Params.sidebarDescription | default .Site.Params.description }}</p>
+      <h2 class="sidebar-panel__title">{{ .Site.Params.rightSidebarInfoTitle | default "About" }}</h2>
+      <p>{{ .Site.Params.rightSidebarInfo | default .Site.Params.description }}</p>
     </section>
     {{ if .Site.Taxonomies.categories }}
     <section class="sidebar-panel">

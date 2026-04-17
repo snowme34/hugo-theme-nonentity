@@ -7,7 +7,7 @@
     <p class="taxonomy-count">{{ len .Data.Terms }} {{ if eq .Data.Plural "categories" }}categories{{ else }}{{ .Data.Plural }}{{ end }}</p>
   </header>
   {{ if eq .Data.Plural "tags" }}
-    {{ $posts := where .Site.RegularPages "Section" "posts" }}
+    {{ $posts := where .Site.RegularPages "Section" "post" }}
     {{ $tagPosts := slice }}
     {{ range $posts }}
       {{ $postTags := slice }}

@@ -1,13 +1,13 @@
 {{ define "main" }}
 {{ $dateFormat := .Site.Params.dateFormat | default "January 2, 2006" }}
-{{ $paginateCount := cond (eq .Section "posts") (.Site.Params.paginateArchive | default 50) (.Site.Params.paginate | default 20) }}
+{{ $paginateCount := cond (eq .Section "post") (.Site.Params.paginateArchive | default 50) (.Site.Params.paginate | default 20) }}
 {{ $paginator := .Paginate .Pages $paginateCount }}
 <div class="list-page">
   <header class="list-header">
     <h1>{{ .Title }}</h1>
     <p class="list-count">{{ len .Pages }} {{ if eq (len .Pages) 1 }}post{{ else }}posts{{ end }}</p>
   </header>
-  {{ if eq .Section "posts" }}
+  {{ if eq .Section "post" }}
     {{ range $paginator.Pages.GroupByDate "2006" }}
       <section class="archive-year">
         <h2 class="archive-year__title">{{ .Key }}</h2>

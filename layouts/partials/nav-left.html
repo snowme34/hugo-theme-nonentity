@@ -2,12 +2,12 @@
 {{ $aboutExternalURL := .Site.Params.about.url | default "" }}
 {{ $aboutURL := cond (ne $aboutExternalURL "") $aboutExternalURL $aboutLocalURL }}
 {{ $aboutActive := and (eq $aboutExternalURL "") (eq .RelPermalink $aboutLocalURL) }}
-{{ $homeActive := or .IsHome (and (eq .Kind "page") (ne .Section "posts") (ne .RelPermalink $aboutLocalURL)) }}
+{{ $homeActive := or .IsHome (and (eq .Kind "page") (ne .Section "post") (ne .RelPermalink $aboutLocalURL)) }}
 {{ $profile := .Site.Params.profile | default (dict) }}
 {{ $profileLink := $profile.link | default "" }}
 {{ $defaultNav := slice
   (dict "name" "Home" "url" ("" | relURL) "icon" "home" "active" $homeActive)
-  (dict "name" "Archives" "url" ("posts/" | relURL) "icon" "archive" "active" (and (eq .Section "posts") (eq .Kind "section")))
+  (dict "name" "Archives" "url" ("post/" | relURL) "icon" "archive" "active" (and (eq .Section "post") (eq .Kind "section")))
   (dict "name" "Categories" "url" ("categories/" | relURL) "icon" "folder" "active" (eq .Data.Plural "categories"))
   (dict "name" "Tags" "url" ("tags/" | relURL) "icon" "tag" "active" (eq .Data.Plural "tags"))
   (dict "name" "About" "url" $aboutURL "icon" "user" "active" $aboutActive)

@@ -45,14 +45,15 @@ All options go under `[params]` in `hugo.toml` unless noted otherwise.
 
 ```toml
 [params]
-  description      = "Used in <meta name=description> for SEO."
-  sidebarDescription = "Shown in the right sidebar About panel. Falls back to description if not set."
-  footerText       = "Text shown at the bottom of every page."
-  keywords         = ["blog", "developer"]   # <meta name=keywords>
-  dateFormat       = "January 2, 2006"       # Go time format
-  favicon          = "/images/favicon.png"   # Path to favicon
-  enableRSS        = true                    # Adds RSS link in <head> and sidebar footer
-  showColorSchemeToggle = true               # Show the light/dark toggle button
+  description           = "Used in <meta name=description> for SEO."
+  footerText            = "Text shown at the bottom of every page."
+  keywords              = ["blog", "developer"]   # <meta name=keywords>
+  dateFormat            = "January 2, 2006"       # Go time format
+  favicon               = "/images/favicon.png"   # Path to favicon
+  enableRSS             = true                    # Adds RSS link in <head> and sidebar footer
+  showColorSchemeToggle = true                    # Show the light/dark toggle button
+  rightSidebarInfo      = "Text shown in the right sidebar info panel. Falls back to description if not set."
+  rightSidebarInfoTitle = "About"                 # Title of the right sidebar info panel
 ```
 
 ### Pagination
@@ -60,7 +61,7 @@ All options go under `[params]` in `hugo.toml` unless noted otherwise.
 ```toml
 [params]
   paginate         = 15   # Posts per page on home and section lists
-  paginateArchive  = 10   # Posts per page on archive (/posts/)
+  paginateArchive  = 10   # Posts per page on archive (/post/)
   paginateTaxonomy = 5    # Posts per page on a single tag or category page (e.g. /tags/hugo/)
   paginateTags     = 15   # Posts per page in the tag filter results on /tags/
 ```
@@ -75,6 +76,15 @@ Shown at the top of the left sidebar.
   name   = "Your Name"
   bio    = "Short bio line"
   link   = "/"                   # Where clicking the avatar goes
+```
+
+### About link
+
+By default the "About" nav item links to your local `about/` page. Set `params.about.url` to redirect it to an external URL instead.
+
+```toml
+[params.about]
+  url = "https://example.com/about"   # omit to use the local about/ page
 ```
 
 ### Social links
@@ -163,7 +173,7 @@ Requires a public GitHub repo with Discussions enabled. Get your IDs at [giscus.
   loading         = "lazy"
 ```
 
-Comments are rendered only on pages in the `posts` section.
+Comments are rendered only on pages in the `post` section.
 
 ### Analytics (Cloudflare)
 

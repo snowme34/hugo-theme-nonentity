@@ -1,6 +1,6 @@
 {{ define "main" }}
 {{ $dateFormat := .Site.Params.dateFormat | default "January 2, 2006" }}
-{{ $paginator := .Paginate (where .Site.RegularPages "Section" "posts") (.Site.Params.paginate | default 20) }}
+{{ $paginator := .Paginate (where .Site.RegularPages "Section" "post") (.Site.Params.paginate | default 20) }}
 <div class="home-page">
   <ul class="post-list">
     {{ range $paginator.Pages }}

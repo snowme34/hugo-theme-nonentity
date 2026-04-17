@@ -31,7 +31,7 @@
   <div class="post-content">
     {{ .Content }}
   </div>
-  {{ if eq .Section "posts" }}
+  {{ if eq .Section "post" }}
     {{ partial "comments.html" . }}
   {{ end }}
 </article>
