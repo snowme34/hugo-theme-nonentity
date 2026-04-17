@@ -5,7 +5,7 @@ description = "A minimal Hugo theme"
 homepage = "https://github.com/snowme34/hugo-theme-nonentity"
 tags = ["blog", "minimal", "clean"]
 features = ["responsive", "dark-mode", "search", "toc"]
-min_version = "0.112.0"
+min_version = "0.111.3"
 
 [author]
   name = "snowme34"
