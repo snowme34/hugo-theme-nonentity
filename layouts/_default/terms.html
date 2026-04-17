@@ -40,7 +40,7 @@
           <button type="button" class="tag-filter-chip" data-tag-filter-chip data-tag-name="{{ .Page.Title | lower }}">{{ .Page.Title }} <span class="count">{{ .Count }}</span></button>
         {{ end }}
       </nav>
-      <script type="application/json" data-tag-filter-data>{{ $tagPosts | jsonify }}</script>
+      <script type="application/json" data-tag-filter-data>{{ $tagPosts | jsonify | safeJS }}</script>
       <div class="tag-filter-results-meta">
         <p class="taxonomy-count" data-tag-filter-range></p>
         <div class="pagination pagination--filter" data-tag-filter-pagination hidden>
