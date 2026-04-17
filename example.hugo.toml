@@ -26,6 +26,11 @@ enableRobotsTXT = true
     bio = "Building with Hugo"
     link = "/"
 
+  # About link: omit or leave empty to use the default about.md page.
+  # Set to an external URL to link elsewhere instead.
+  # [params.about]
+  #   url = "https://example.com/about"
+
   [params.leftNavExtra]
     enable = true
 
