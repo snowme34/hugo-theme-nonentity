@@ -202,8 +202,9 @@ These must be present for syntax highlighting and search to work correctly.
 | `categories` | string[] | Categories for this post. |
 | `tags` | string[] | Tags for this post. |
 | `toc` | bool | Per-page TOC override. `true` forces it on, `false` forces it off, regardless of the global `params.toc.enable` setting. |
+| `comment` | bool | Set to `false` to disable comments on a specific post. Has no effect if comments are not globally enabled. |
 | `excerpt` | string | Custom summary shown in post lists. Falls back to the first 180 characters of the page's plain text. |
-| `description` | string | Page `<meta name="description">` for SEO. Falls back to `params.description`. |
+| `description` | string | Page `<meta name="description">` for SEO. Takes highest priority; falls back to `excerpt`, then the auto-generated summary, then `params.description`. |
 
 ## Design Credit
 

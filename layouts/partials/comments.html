@@ -1,5 +1,5 @@
 {{ $giscus := .Site.Params.comments.giscus }}
-{{ if and $giscus ($giscus.enable | default false) $giscus.repo $giscus.repoID $giscus.category $giscus.categoryID }}
+{{ if and $giscus ($giscus.enable | default false) $giscus.repo $giscus.repoID $giscus.category $giscus.categoryID (ne .Params.comment false) }}
 <section class="comments-section">
   <h2 class="comments-section__title">Comments</h2>
   <script src="https://giscus.app/client.js"
