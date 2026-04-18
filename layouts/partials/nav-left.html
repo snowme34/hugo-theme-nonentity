@@ -10,14 +10,14 @@
   (dict "name" "Archives" "url" ("post/" | relURL) "icon" "archive" "active" (and (eq .Section "post") (eq .Kind "section")))
   (dict "name" "Categories" "url" ("categories/" | relURL) "icon" "folder" "active" (eq .Data.Plural "categories"))
   (dict "name" "Tags" "url" ("tags/" | relURL) "icon" "tag" "active" (eq .Data.Plural "tags"))
-  (dict "name" "About" "url" $aboutURL "icon" "user" "active" $aboutActive)
+  (dict "name" "About" "url" $aboutURL "icon" "user" "active" $aboutActive "external" (ne $aboutExternalURL ""))
 }}
 {{ $leftNavEnabled := .Site.Params.leftNavExtra.enable | default false }}
 {{ $prependNav := slice }}
 {{ $appendNav := slice }}
 {{ if $leftNavEnabled }}
   {{ range .Site.Params.leftNavExtra.items }}
-    {{ $item := dict "name" .name "url" .link "iconSvg" .svg "active" false }}
+    {{ $item := dict "name" .name "url" .link "iconSvg" .svg "active" false "external" true }}
     {{ if eq (.location | default "append") "prepend" }}
       {{ $prependNav = $prependNav | append $item }}
     {{ else }}
@@ -52,7 +52,7 @@
 
     <nav class="main-nav" aria-label="Main navigation">
       {{ range $navItems }}
-        <a href="{{ .url }}" class="main-nav__link{{ if .active }} is-active{{ end }}">
+        <a href="{{ .url }}" class="main-nav__link{{ if .active }} is-active{{ end }}"{{ if .external }} target="_blank" rel="noopener noreferrer"{{ end }}>
           {{ with .icon }}{{ partial (printf "icons/%s.html" .) $ }}{{ end }}
           {{ with .iconSvg }}<span class="main-nav__icon main-nav__icon--custom" aria-hidden="true">{{ . | safeHTML }}</span>{{ end }}
           <span class="main-nav__label">{{ .name }}</span>
