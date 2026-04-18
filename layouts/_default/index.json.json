@@ -10,7 +10,7 @@
 {{ $pages := slice }}
 {{ range $index, $page := .Site.RegularPages }}
   {{ $entry := dict "title" $page.Title "uri" $page.RelPermalink "summary" $page.Summary "content" ($page.Plain | truncate 5000) "tags" $page.Params.tags "categories" $page.Params.categories "year" ($page.Date.Format "2006") }}
-  {{ if eq $page.Section "posts" }}
+  {{ if eq $page.Section "post" }}
     {{ $posts = $posts | append $entry }}
   {{ else }}
     {{ $pages = $pages | append $entry }}

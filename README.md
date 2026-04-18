@@ -17,7 +17,7 @@ A minimal, responsive Hugo blog theme. Three-column layout: left nav sidebar, co
 
 ## Requirements
 
-Hugo `>= 0.112.0`
+Hugo `>= 0.111.3`
 
 ## Installation
 

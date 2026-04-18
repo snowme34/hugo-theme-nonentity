@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <ul>
           ${items.map((item) => `
             <li>
-              <a href="${item.uri}">${item.title}</a>
+              <a href="${escapeHtml(item.uri)}">${escapeHtml(item.title)}</a>
               ${item.snippet ? `<p class="search-results__snippet">${item.snippet}</p>` : ""}
             </li>
           `).join("")}
