@@ -205,6 +205,36 @@ These must be present for syntax highlighting and search to work correctly.
 | `comment` | bool | Set to `false` to disable comments on a specific post. Has no effect if comments are not globally enabled. |
 | `excerpt` | string | Custom summary shown in post lists. Falls back to the first 180 characters of the page's plain text. |
 | `description` | string | Page `<meta name="description">` for SEO. Takes highest priority; falls back to `excerpt`, then the auto-generated summary, then `params.description`. |
+| `lang` | string | Language of this post (`en`, `zh`, `jp`). Used to localize the "Also available in:" label when `translations` is set. |
+| `translations` | string[] | Slugs of translated versions of this post. Renders an "Also available in:" list linking to each. |
+
+### Translations
+
+Link translated versions of a post by listing each other's slugs. All posts remain in the same section; no multilingual mode required.
+
+It is recommended to name translated files with the same base slug suffixed by the 2-character language code:
+
+```
+content/post/my-post-en.md
+content/post/my-post-zh.md
+content/post/my-post-jp.md
+```
+
+```yaml
+# content/post/my-post-en.md
+lang: en
+translations:
+  - "my-post-zh"
+  - "my-post-jp"
+
+# content/post/my-post-zh.md
+lang: zh
+translations:
+  - "my-post-en"
+  - "my-post-jp"
+```
+
+Each post renders a localized "Also available in:" block with links to the others. If a slug does not match any page, it is silently skipped.
 
 ## Design Credit
 
