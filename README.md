@@ -1,6 +1,6 @@
 # Nonentity
 
-A minimal, responsive Hugo blog theme. Three-column layout: left nav sidebar, content, right sidebar (TOC / tags / categories).
+A minimal, responsive, searchable Hugo blog theme. Three-column layout: left nav sidebar, content, right sidebar (TOC / tags / categories).
 
 ![Screenshot](example.png)
 
